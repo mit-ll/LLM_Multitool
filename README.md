@@ -62,15 +62,6 @@ and cloud hosted platforms.
 **Jupyter notebook example:**
 
   singularity run --nv -B io/:/io/ -B falcon-7b.sqsh:/io/hub/models--tiiuae--falcon-7b:image-src=/ llms_box jupyter notebook --allow-root --ip='*' --NotebookApp.token='' --NotebookApp.password=''
-
-**Singularity Crystal LLM Rails interface example:**
-
-  Place LLM models in io/hub
-
-  singularity run --nv -B io/:/io/ --writable llms_box "rails s -b 0.0.0.0"
-  
-  Open Crystal LLM web interface on port 3000 on hosting server
-
 **Docker**
 
 **To build:**
@@ -89,16 +80,3 @@ and cloud hosted platforms.
 
   LangChain_example.ipynb
 
-**Docker Crystal LLM Rails interface example:**
-
-  Place LLM models in io/hub
-
-  docker run --gpus all -v ${PWD}/io:/io llms:latest rails s -b 0.0.0.0
-
-or
-
-  docker volume create --name io -o type=none -o o=bind -o device=${PWD}/io
-
-  docker-compose up
-  
-  Open Crystal LLM web interface on port 3000 on hosting server
