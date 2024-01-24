@@ -1,0 +1,2 @@
+time singularity run --nv -B io/:/io/ -B Llama-2-7b-chat-hf.sqsh:/io/hub/models--meta-llama--Llama-2-7b-chat-hf:image-src=/ llms.sif python /io/llama2_cli.py "How to cook fish?"
+

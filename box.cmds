@@ -1,0 +1,1 @@
+singularity build --sandbox llms_box llms.def

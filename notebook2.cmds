@@ -1,0 +1,1 @@
+singularity run --nv -B io/:/io/ -B falcon-7b.sqsh:/io/hub/models--tiiuae--falcon-7b:image-src=/ llms_box jupyter notebook --allow-root --ip='*' --NotebookApp.token='' --NotebookApp.password=''
