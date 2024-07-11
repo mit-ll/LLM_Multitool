@@ -1,9 +1,10 @@
-from transformers import AutoTokenizer, AutoModelForCausalLM, TextStreamer
-import transformers
-import torch
+import json
 import os
-import sys
 from os import environ
+import sys
+import torch
+import transformers
+from transformers import AutoTokenizer, AutoModelForCausalLM, TextStreamer
 
 ################################################################################
 # Author: Darrell O. Ricke, Ph.D.  (email: Darrell.Ricke@ll.mit.edu)
@@ -42,7 +43,8 @@ environ["TRANSFORMERS_OFFLINE"] = "1"
 environ["TRANSFORMERS_CACHE"] = "/io"
 
 ################################################################################
-def call_llm(model_id, question, hf_token):
+def call_llm(model_id, question):
+    hf_token = "hf_..."
     tokenizer = AutoTokenizer.from_pretrained(model_id, token=hf_token, load_in_16bit=True, trust_remote_code=True, device_map="auto", )
     
     pipeline = transformers.pipeline(
@@ -74,4 +76,10 @@ else:
 
 arg_count = len(sys.argv)
 if ( arg_count >= 2 ):
-  print( call_llm(sys.argv[1], sys.argv[2]), hf_token )
+    with open( sys.argv[1] ) as json_file:
+        params = json.load(json_file)
+
+        model_id = params["llm_model"]
+        questions = params["questions"]
+        for question in questions:
+            print( call_llm(model_id, question) )
