@@ -60,7 +60,7 @@ RUN apt-get update && apt-get install -y build-essential coreutils \
     libmysqlclient-dev \
     nodejs \
     sqlite3 \
-    ruby-full rubygems vim libyaml-dev libsqlite3-dev
+    ruby-full rubygems vim libyaml-dev libsqlite3-dev default-jre
 
 RUN mkdir /S
 
@@ -77,13 +77,13 @@ RUN curl https://bootstrap.pypa.io/pip/3.6/get-pip.py -o get-pip.py \
 
 COPY dependencies/wgetrc /etc
 WORKDIR /S
-RUN cd /S && wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /S/miniconda.sh
-RUN bash /S/miniconda.sh -b -p /S/miniconda/
-ENV PATH="/S/miniconda/bin/:$PATH"
-RUN export PATH="/S/miniconda/bin/:$PATH"
+# RUN cd /S && wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /S/miniconda.sh
+# RUN bash /S/miniconda.sh -b -p /S/miniconda/
+# ENV PATH="/S/miniconda/bin/:$PATH"
+# RUN export PATH="/S/miniconda/bin/:$PATH"
 
-RUN conda create -n llama2
-RUN conda init bash
+# RUN conda create -n llama2
+# RUN conda init bash
 # RUN conda activate llama2
 COPY dependencies/llms_requirements.txt /S
 RUN pip install -r llms_requirements.txt \
@@ -100,6 +100,8 @@ RUN pip install -r llms_requirements.txt \
     && pip install einops \
     && pip install bitsandbytes \
     && pip install accelerate
+
+RUN pip install numba
 
 RUN git clone https://github.com/facebookresearch/llama.git
 WORKDIR /S/llama

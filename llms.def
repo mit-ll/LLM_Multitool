@@ -46,10 +46,9 @@ From: nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04
   mkdir -p ${SINGULARITY_ROOTFS}/models/llama-2-70b-chat/
 
 %files
-  llm_ui_s.tar /S/llm_ui_s.tar
+# llm_ui_s.tar /S/llm_ui_s.tar
   dependencies/apt.conf /etc/apt/apt.conf
   dependencies/wgetrc /S/wgetrc
-  dependencies/chat.py /S/chat.py
   dependencies/tokenizer.model /S/tokenizer.model
   dependencies/llms_requirements.txt /S/llms_requirements.txt
 
@@ -70,7 +69,7 @@ From: nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04
   apt-get install -y git curl unzip bc tabix
   apt-get install -y libssl-dev libgit2-dev libssh2-1-dev
   apt-get install -y gcc zip # vim
-  apt-get install -y python3.10 gcc zip python3-dev
+  apt-get install -y python3.11 gcc zip python3-dev
   apt-get install -y zlib1g-dev libbz2-dev liblzma-dev pigz libncurses5-dev
   apt-get install -y libreadline-dev
   apt-get install -y openssl
@@ -102,7 +101,7 @@ From: nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04
   export PATH="/S/miniconda/bin/:$PATH"
 
   pip install -r llms_requirements.txt
-  pip install llama-cpp-python
+  pip install llama-cpp-python==0.2.79
   pip install fastapi uvicorn sse-starlette requests
   pip install transformers
   pip install gradio
@@ -128,10 +127,10 @@ From: nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04
   apt-get update
   apt-get install -y nvidia-container-toolkit
 
-  cd /S
-  tar -xf llm_ui_s.tar
-  cd /S/llm_ui
-  bundle update
+# cd /S
+# tar -xf llm_ui_s.tar
+# cd /S/llm_ui
+# bundle update
 
 %environment
   export DEBIAN_FRONTEND=noninterative
