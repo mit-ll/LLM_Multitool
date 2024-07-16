@@ -69,9 +69,9 @@ def call_llm(model_id, question, hf_token):
 environ["HF_HUB_CACHE"] = "/io/hub"
 if 'HF_TOKEN' in environ.keys():
   hf_token = environ["HF_TOKEN"]
+  arg_count = len(sys.argv)
+  if ( arg_count >= 2 ):
+    print( call_llm(sys.argv[1], sys.argv[2], hf_token) )
 else:
     print("Please set your Huggingface key in the environment variable 'HF_TOKEN'")
 
-arg_count = len(sys.argv)
-if ( arg_count >= 2 ):
-  print( call_llm(sys.argv[1], sys.argv[2]), hf_token )
